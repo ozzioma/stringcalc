@@ -33,8 +33,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculatorModel model;
-            model = new StringCalculatorModel(input1);
+            StringCalculator model;
+            model = new StringCalculator(input1);
             assertEquals(0, model.calculateSum());
 
         });
@@ -46,7 +46,7 @@ class StringcalcApplicationTests
     {
         InvalidOperationException exception = assertThrows(InvalidOperationException.class, () ->
         {
-            StringCalculatorModel model = new StringCalculatorModel(input2);
+            StringCalculator model = new StringCalculator(input2);
         });
     }
 
@@ -55,7 +55,7 @@ class StringcalcApplicationTests
     {
         InvalidOperationException exception = assertThrows(InvalidOperationException.class, () ->
         {
-            StringCalculatorModel model = new StringCalculatorModel(input22);
+            StringCalculator model = new StringCalculator(input22);
         });
     }
 
@@ -70,8 +70,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculatorModel model;
-            model = new StringCalculatorModel(input3);
+            StringCalculator model;
+            model = new StringCalculator(input3);
             assertEquals(78, model.calculateSum());
 
         });
@@ -85,8 +85,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculatorModel model;
-            model = new StringCalculatorModel(input4);
+            StringCalculator model;
+            model = new StringCalculator(input4);
             assertEquals(15, model.calculateSum());
 
         });
@@ -98,8 +98,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculatorModel model;
-            model = new StringCalculatorModel(input42);
+            StringCalculator model;
+            model = new StringCalculator(input42);
             assertEquals(28, model.calculateSum());
 
         });
@@ -111,8 +111,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculatorModel model;
-            model = new StringCalculatorModel(input5);
+            StringCalculator model;
+            model = new StringCalculator(input5);
             assertEquals(15, model.calculateSum());
 
         });
@@ -125,8 +125,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculatorModel model;
-            model = new StringCalculatorModel(input6);
+            StringCalculator model;
+            model = new StringCalculator(input6);
             assertEquals(15, model.calculateSum());
 
         });
@@ -138,8 +138,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculatorModel model;
-            model = new StringCalculatorModel(input7);
+            StringCalculator model;
+            model = new StringCalculator(input7);
             assertEquals(15, model.calculateSum());
 
         });
@@ -152,8 +152,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculatorModel model;
-            model = new StringCalculatorModel(input8);
+            StringCalculator model;
+            model = new StringCalculator(input8);
             assertEquals(15, model.calculateSum());
 
         });
@@ -166,8 +166,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculatorModel model;
-            model = new StringCalculatorModel(input9);
+            StringCalculator model;
+            model = new StringCalculator(input9);
             assertEquals(21, model.calculateSum());
 
         });

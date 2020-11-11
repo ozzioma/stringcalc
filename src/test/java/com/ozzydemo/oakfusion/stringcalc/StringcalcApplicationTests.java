@@ -13,9 +13,12 @@ class StringcalcApplicationTests
     String input2 = "\\!;**\n1;2\n3\n4!5!6**7;8\n9**-10";
     String input22 = "\\,!\n1\n2,3\n4\n-5!6!-7";
     String input3 = "\\!;*\n1;2!3\n4;5\n6\n7!8*9!10**11***12";
+    String input32 = "\\!;*\n1;2!3\n4;5\n6\n7!8*9!10**11***12!999";
+    String input33 = "\\!;**\n1;2!3\n4;5\n6\n7!8*9!10**11***12*1000";
+    String input34 = "\\!;***\n1;2!3\n4;5\n6\n7!8*9!10**11***12;1001";
+    String input35 = "\\!;***\n1;2!3\n4;5\n6\n7!8*9!10**11***12**2000";
     String input4 = "\\,\n1\n2,3\n4\n5";
     String input42 = "\\,!\n1\n2,3\n4\n5!6!7";
-    //String input43 = "1\n2,3\n4\n5";
     String input5 = "1,2,3,4,5";
     String input6 = "1*2*3*4*5";
     String input7 = "1**2**3**4**5";
@@ -33,9 +36,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculator model;
-            model = new StringCalculator(input1);
-            assertEquals(0, model.calculateSum());
+            StringCalculator model = new StringCalculator();
+            assertEquals(0, model.Add(input1));
 
         });
 
@@ -46,7 +48,8 @@ class StringcalcApplicationTests
     {
         InvalidOperationException exception = assertThrows(InvalidOperationException.class, () ->
         {
-            StringCalculator model = new StringCalculator(input2);
+            StringCalculator model = new StringCalculator();
+            model.Add(input2);
         });
     }
 
@@ -55,27 +58,88 @@ class StringcalcApplicationTests
     {
         InvalidOperationException exception = assertThrows(InvalidOperationException.class, () ->
         {
-            StringCalculator model = new StringCalculator(input22);
+            StringCalculator model = new StringCalculator();
+            model.Add(input22);
         });
     }
 
     @Test
-    void can_recognize_UndeclaredTokens()
+    void sum_is_78_On_Input3()
     {
-//        InvalidOperationException exception = assertThrows(InvalidOperationException.class, () ->
-//        {
-//            StringCalculatorModel model = new StringCalculatorModel(input3);
-//        });
+
+        assertDoesNotThrow(() ->
+        {
+            StringCalculator model = new StringCalculator();
+            assertEquals(78,  model.Add(input3));
+
+        });
+
+    }
+
+    @Test
+    void sum_is_1077_On_Input32()
+    {
+
+        assertDoesNotThrow(() ->
+        {
+            StringCalculator model = new StringCalculator();
+            assertEquals(1077,  model.Add(input32));
+
+        });
+
+    }
+
+
+    @Test
+    void sum_is_1078_On_Input33()
+    {
+
+        assertDoesNotThrow(() ->
+        {
+            StringCalculator model = new StringCalculator();
+            assertEquals(1078,  model.Add(input33));
+
+        });
+
+    }
+
+
+    @Test
+    void ignores_numbers_greaterThan_1000_On_Input34()
+    {
+
+        assertDoesNotThrow(() ->
+        {
+            StringCalculator model = new StringCalculator();
+            assertEquals(78,  model.Add(input34));
+
+        });
+
+    }
+
+    @Test
+    void ignores_numbers_greaterThan_1000_On_Input35()
+    {
+
+        assertDoesNotThrow(() ->
+        {
+            StringCalculator model = new StringCalculator();
+            assertEquals(78,  model.Add(input35));
+
+        });
+
+    }
+
+    @Test
+    void can_recognize_UndeclaredTokens_On_Input3()
+    {
 
         assertDoesNotThrow(() ->
         {
 
-            StringCalculator model;
-            model = new StringCalculator(input3);
-            assertEquals(78, model.calculateSum());
-
+            StringCalculator model = new StringCalculator();
+            assertEquals(78,  model.Add(input3));
         });
-
 
     }
 
@@ -84,10 +148,8 @@ class StringcalcApplicationTests
     {
         assertDoesNotThrow(() ->
         {
-
-            StringCalculator model;
-            model = new StringCalculator(input4);
-            assertEquals(15, model.calculateSum());
+            StringCalculator model = new StringCalculator();
+            assertEquals(15, model.Add(input4));
 
         });
     }
@@ -98,9 +160,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculator model;
-            model = new StringCalculator(input42);
-            assertEquals(28, model.calculateSum());
+            StringCalculator model = new StringCalculator();
+            assertEquals(28, model.Add(input42));
 
         });
     }
@@ -111,9 +172,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculator model;
-            model = new StringCalculator(input5);
-            assertEquals(15, model.calculateSum());
+            StringCalculator model = new StringCalculator();
+            assertEquals(15, model.Add(input5));
 
         });
     }
@@ -125,9 +185,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculator model;
-            model = new StringCalculator(input6);
-            assertEquals(15, model.calculateSum());
+            StringCalculator model = new StringCalculator();
+            assertEquals(15, model.Add(input6));
 
         });
     }
@@ -138,9 +197,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculator model;
-            model = new StringCalculator(input7);
-            assertEquals(15, model.calculateSum());
+            StringCalculator model = new StringCalculator();
+            assertEquals(15, model.Add(input7));
 
         });
     }
@@ -152,9 +210,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculator model;
-            model = new StringCalculator(input8);
-            assertEquals(15, model.calculateSum());
+            StringCalculator model = new StringCalculator();
+            assertEquals(15, model.Add(input8));
 
         });
     }
@@ -166,9 +223,8 @@ class StringcalcApplicationTests
         assertDoesNotThrow(() ->
         {
 
-            StringCalculator model;
-            model = new StringCalculator(input9);
-            assertEquals(21, model.calculateSum());
+            StringCalculator model = new StringCalculator();
+            assertEquals(21, model.Add(input9));
 
         });
     }

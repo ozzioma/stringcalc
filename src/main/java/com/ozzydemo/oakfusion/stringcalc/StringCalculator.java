@@ -13,6 +13,7 @@ public class StringCalculator
     private boolean hasCorrectBeginSequence;
     private String firstSequence;
     private String secondSequence;
+    private final int addLimit = 1001;
 
     private List<String> secondSequenceList;
 
@@ -20,20 +21,27 @@ public class StringCalculator
     List<Integer> negativeNumbers;
     List<String> inValidTokens;
 
-
-    public StringCalculator(String input) throws InvalidOperationException
+    public StringCalculator()
     {
-        this.inputString = input;
-        hasDefaultDelimiter = false;
-        containsNewLine = false;
-        hasCorrectBeginSequence = false;
-
         validNumbers = new ArrayList<Integer>();
         negativeNumbers = new ArrayList<Integer>();
         inValidTokens = new ArrayList<String>();
 
-        evaluate();
     }
+
+//    public StringCalculator(String input) throws InvalidOperationException
+//    {
+//        this.inputString = input;
+//        hasDefaultDelimiter = false;
+//        containsNewLine = false;
+//        hasCorrectBeginSequence = false;
+//
+//        validNumbers = new ArrayList<Integer>();
+//        negativeNumbers = new ArrayList<Integer>();
+//        inValidTokens = new ArrayList<String>();
+//
+//        evaluate();
+//    }
 
 
     private void evaluate() throws InvalidOperationException
@@ -87,7 +95,8 @@ public class StringCalculator
                     }
                     else
                     {
-                        validNumbers.add(tokenValue);
+                        if (tokenValue < addLimit)
+                            validNumbers.add(tokenValue);
 
                     }
                 }
@@ -132,8 +141,104 @@ public class StringCalculator
     }
 
 
-    public Integer calculateSum()
+    public int Add(String numbers) throws InvalidOperationException
     {
+
+        inputString = numbers;
+        String updatedInput = inputString;
+
+        if (!inputString.startsWith("\\"))
+        {
+            updatedInput = "\\" + StringUtil.getDelimiters(inputString) + "\n" + inputString;
+        }
+
+        if (inputString.isBlank() || inputString.isEmpty())
+        {
+            System.out.println("input string is empty, sum is->" + 0);
+            //validNumbers.add(0);
+            return 0;
+        }
+
+
+        String[] delimiterTokens = updatedInput.split("[\\\\\n]");
+
+        int delimiterTokenPosition = 0;
+        //String[] delimiterTokens = inputString.split("[\\\\\n]");
+
+        if (delimiterTokens.length > 2)
+        {
+            delimiterTokenPosition = 1;
+        }
+
+        System.out.println("len of tokens->" + delimiterTokens.length);
+        System.out.println("printing tokens");
+        int tokenCount = 1;
+        for (String token : delimiterTokens)
+        {
+            System.out.println("\ntoken " + tokenCount + "->" + token);
+            tokenCount++;
+
+            String[] subDelimiterTokens = token.split("[" + delimiterTokens[delimiterTokenPosition] + "]");
+            int subTokenCount = 1;
+            for (String subToken : subDelimiterTokens)
+            {
+                System.out.println("sub token " + subTokenCount + "->" + subToken);
+
+                if (subToken.isEmpty() || subToken.isBlank()) continue;
+
+                Integer tokenValue;
+                try
+                {
+                    tokenValue = Integer.parseInt(subToken);
+                    System.out.println("token value->" + tokenValue);
+
+                    if (tokenValue < 0)
+                    {
+                        negativeNumbers.add(tokenValue);
+                    }
+                    else
+                    {
+                        if (tokenValue < addLimit)
+                            validNumbers.add(tokenValue);
+
+                    }
+                }
+                catch (NumberFormatException ex)
+                {
+                    //throw ex;
+                    inValidTokens.add(subToken);
+                }
+
+                subTokenCount++;
+            }
+        }
+
+        String delimiterToken = delimiterTokens[delimiterTokenPosition];
+        System.out.printf("\ndelimiter token->" + delimiterToken);
+
+        String strInvalidNumbers = String.join(",", inValidTokens);
+
+        String strValidNumbers = String.join(",",
+                validNumbers.stream().map(s -> String.valueOf(s)).collect(Collectors.toList()));
+
+        String strNegativeNumbers = String.join(",",
+                negativeNumbers.stream().map(s -> String.valueOf(s)).collect(Collectors.toList()));
+
+        System.out.printf("\nValid Numbers->" + strValidNumbers);
+
+        if (!inValidTokens.isEmpty())
+        {
+            System.out.printf("\nInvalid Numbers->" + strInvalidNumbers);
+            throw new InvalidOperationException("input string contains numbers with invalid delimiters->" + strInvalidNumbers);
+        }
+
+        if (!negativeNumbers.isEmpty())
+        {
+            System.out.printf("\nNegative Numbers->" + strNegativeNumbers);
+            throw new InvalidOperationException("input string contains negative numbers->" + strNegativeNumbers);
+        }
+
+
         return validNumbers.stream().reduce(0, Integer::sum);
     }
 
